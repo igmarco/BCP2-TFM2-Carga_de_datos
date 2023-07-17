@@ -1,6 +1,9 @@
 import re
 
 def correccion_numero_detalle(num_detalle):
+    """Realiza el tratamiento de las cadenas almacenadas en el número (detalle) de las direcciones, devolviendo
+    por un lado el número y por otro el detalle."""
+
     if re.match('^Km', num_detalle):
         splitted = num_detalle.split(' ')
         if splitted[1].isdigit():
@@ -27,12 +30,14 @@ def correccion_numero_detalle(num_detalle):
     return numero, detalle
 
 def estandarizar_TipoVia(tipovia):
+    """Modifica la cadena tipovia devolviendo 'No definido' ante situaciones similares."""
 
     if tipovia == 'No':
         tipovia = 'No definido'
 
     return tipovia
 
+# Definimos un diccionario que identifique con un entero cada uno de los distintos tipos de vía.
 tipo_via_index = {
     'No definido':0,
     'Boulevard':1,

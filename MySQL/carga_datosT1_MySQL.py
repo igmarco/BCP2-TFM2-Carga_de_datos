@@ -1,9 +1,12 @@
 import mysql.connector
 import pandas as pd
 
+# Cargamos el fichero de utilidad.
 import util_carga_datosT1_MySQL
 
 def bd_connection(host="localhost", user="root", password="root", database="Direcciones_LaRioja"):
+    """Devuelve un conector y un cursor a la base de datos MySQL especificada."""
+
     connector = mysql.connector.connect(
         host=host,
         user=user,
@@ -16,6 +19,8 @@ def bd_connection(host="localhost", user="root", password="root", database="Dire
     return connector, cursor
 
 def show_tables(cursor, database=None):
+    """Muestra por pantalla la colección de tablas de la base de datos MySQL especificada."""
+
     if database is not None:
         sql = "USE " + database
         cursor.execute(sql)
@@ -26,22 +31,28 @@ def show_tables(cursor, database=None):
         print(x)
 
 def import_CSV(file, separation=','):
+    """Devuelve el objeto DataFrame de Pandas correspondiente al CSV cuya ruta es la indicada."""
+
     # print(file)
     return pd.read_csv(file, sep=separation)
 
 def corregir_nombres_columnas(df):
+    """Las columnas de los ficheros sustituyen el carácter '.' por '0', con lo que este método lo devuelve a la
+    escritura original."""
+
     cols = df.columns
     cols_corregidas = []
     for col in cols:
         cols_corregidas.append(col.replace('0','.'))
     df.columns = cols_corregidas
 
+# Especificamos los parámetros de la BD en MySQL.
 host =      "localhost"
 user =      "root"
 password =  "root"
 database =  "Direcciones_LaRioja"
 
-# general_path = "C:/Users/igmarco/OneDrive - Universidad de La Rioja/Escritorio/Beca de Colaboración/BCP2 (TFM2)/5. BCP2 - Preparación de datos/5.0. Datos/T1"
+# Especificamos los parámetros de los ficheros de origen.
 general_path = "../../5.0. Datos/T1"
 files_names = {
     'address':  "APP_CLLRIOJA.GC_ADDRESS.csv",
@@ -56,6 +67,7 @@ for file in files_names:
 
 # print(files_paths)
 
+# Obtenemos los DataFrames asociados y corregimos los nombres de las columnas.
 address = import_CSV(files_paths['address'], separation=',')
 street =  import_CSV(files_paths['street'], separation=',')
 venues =  import_CSV(files_paths['venues'], separation=',')
@@ -68,11 +80,21 @@ corregir_nombres_columnas(places)
 
 # print(address.columns)
 
+# Creamos la conexión con la BD en MySQL.
 dlr_db, dlr_cursor = bd_connection(host=host,
                                     user=user,
                                     password=password,
                                     database=database)
 # show_tables(dlr_cursor)
+
+'''
+
+A partir de ahora, definimos las funciones
+    agregar_[Región]([tablas*], conector, cursor)
+    
+En ellas, obtenemos los registros que deben incluirse en la Región de la BD y ejecutamos la inserción correspondiente.
+
+'''
 
 def agregar_Estado(address, street, venues, places, connector, cursor):
     places_country = places[places['PLACETYPE'] == 'country']
@@ -124,6 +146,8 @@ def agregar_Provincia(address, street, venues, places, connector, cursor):
 
     print(rowcount, "record inserted.")
 
+# No necesitamos implementar una función agregar_Comarca, ya que no existen comarcas en nuestro conjunto de datos
+# de partida.
 # def agregar_Comarca(address, street, venues, places, connector, cursor):
 #     places_Comarca = places[places['PLACETYPE'] == '???????']
 #     # print(len(places_Comarca))
@@ -192,6 +216,8 @@ def agregar_Nivel1(address, street, venues, places, connector, cursor):
 
     print(rowcount, "record inserted.")
 
+# No necesitamos implementar una función agregar_Nivel2, ya que no existen estructuras de segundo nivel en nuestro
+# conjunto de datos de partida.
 # def agregar_Nivel2(address, street, venues, places, connector, cursor):
 #     places_Nivel2 = places[places['PLACETYPE'] == '??????']
 #     # print(len(places_Nivel2))
@@ -247,6 +273,8 @@ def agregar_Via(address, street, venues, places, connector, cursor):
 
     print(rowcount, "record inserted.")
 
+# Optamos por no implementar una función agregar_Nivel2, aunque se podría considerar obtener estos registros de
+# la tabla "address".
 # def agregar_ViaAntigua(address, street, venues, places, connector, cursor):
 #     places_ViaAntigua = '?????'
 #     # print(len(places_Via))
@@ -337,6 +365,7 @@ def agregar_CodPostal_Municipio(address, street, venues, places, connector, curs
 
     print(rowcount, "record inserted.")
 
+# Ejecutamos las inserciones.
 agregar_Estado(address, street, venues, places, dlr_db, dlr_cursor)
 agregar_CA(address, street, venues, places, dlr_db, dlr_cursor)
 agregar_Provincia(address, street, venues, places, dlr_db, dlr_cursor)
@@ -358,4 +387,5 @@ agregar_CodPostal_Municipio(address, street, venues, places, dlr_db, dlr_cursor)
 # for x in dlr_cursor:
 #     print(x)
 
+# Finalmente, cerramos la conexión.
 dlr_db.close()
