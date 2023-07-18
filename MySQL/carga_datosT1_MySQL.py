@@ -53,7 +53,7 @@ password =  "root"
 database =  "Direcciones_LaRioja"
 
 # Especificamos los parámetros de los ficheros de origen.
-general_path = "../../5.0. Datos/T1"
+general_path = "../Datos/T1"
 files_names = {
     'address':  "APP_CLLRIOJA.GC_ADDRESS.csv",
     'street':   "APP_CLLRIOJA.GC_STREET.csv",
