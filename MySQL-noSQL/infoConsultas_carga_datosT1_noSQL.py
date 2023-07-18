@@ -454,7 +454,7 @@ selecciones = [
         'nombre':'viaantigua',
         'campos':['idVia', 'idViaAntigua', 'nombreVia', 'idTipoVia', 'nombreTipoVia', 'detalle'],
         'campo_id': 'nombreVia',
-        'campo_lista': 'idViaAntigua',
+        'campo_lista': 'idVia',
         'tablas':['viaantigua', 'tipoVia'],
         'using':['idTipoVia'],
         'orderby':['nombreVia']
@@ -491,13 +491,13 @@ selecciones = [
     },
     {
         # Nombre propio (Nombre) --> Direcciones (ID)
-        'nombre': 'nombrepropio',
-        'campos': ['idDireccion', 'nombre', 'numero', 'codPostal', 'nombrevia', 'nombremunicipio',
-                   'nombreprovincia', 'nombreca', 'nombreestado'],
+        'nombre':'nombrepropio',
+        'campos':['idDireccion', 'nombre', 'numero', 'codPostal', 'nombrevia', 'nombremunicipio',
+                  'nombreprovincia', 'nombreca', 'nombreestado'],
         'campo_id': 'nombre',
         'campo_lista': 'idDireccion',
-        'tablas': ['nombrepropio', 'direccion', 'via', 'municipio', 'provincia', 'ca', 'estado'],
-        'using': ['idDireccion', 'idVia', 'idMunicipio', 'idProvincia', 'idCA', 'idEstado'],
-        'orderby': ['nombre']
+        'tablas':['nombrepropio', 'direccion', 'via', 'municipio', 'provincia', 'ca', 'estado'],
+        'using':['idDireccion', 'idVia', 'idMunicipio', 'idProvincia', 'idCA', 'idEstado'],
+        'orderby':['nombre']
     },
 ]
