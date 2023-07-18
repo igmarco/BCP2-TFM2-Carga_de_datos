@@ -139,6 +139,16 @@ CREATE TABLE via(
 	PRIMARY KEY (nombreVia, idVia)
 );
 
+CREATE TABLE viaantigua(
+	nombreVia varchar,
+	idVia varchar,
+	idViaAntigua varchar,
+	idTipoVia int,
+	nombreTipoVia varchar,
+	detalle varchar,
+	PRIMARY KEY (nombreVia, idVia)
+);
+
 CREATE TABLE codPostal(
 	codPostal varchar,
 	idVia varchar,
@@ -168,6 +178,12 @@ CREATE TABLE tipovia(
 CREATE TABLE nombrepropio(
 	nombre varchar,
 	idDireccion varchar,
+	numero int,
+	codPostal varchar,
+	nombrevia varchar,
+	nombremunicipio varchar,
+	nombreprovincia varchar,
+	nombreca varchar,
+	nombreestado varchar,
 	PRIMARY KEY (nombre, idDireccion)
 );
-
