@@ -15,6 +15,7 @@ TRUNCATE comarca;
 TRUNCATE municipio;
 TRUNCATE nivel;
 TRUNCATE via;
+TRUNCATE viaantigua;
 TRUNCATE codPostal;
 TRUNCATE numero;
 TRUNCATE tipovia;
