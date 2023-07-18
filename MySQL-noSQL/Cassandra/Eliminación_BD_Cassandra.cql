@@ -15,6 +15,7 @@ DROP TABLE comarca;
 DROP TABLE municipio;
 DROP TABLE nivel;
 DROP TABLE via;
+DROP TABLE viaantigua;
 DROP TABLE codPostal;
 DROP TABLE numero;
 DROP TABLE tipovia;
