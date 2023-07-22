@@ -1,8 +1,15 @@
 import re
 
 def correccion_numero_detalle(num_detalle):
-    """Realiza el tratamiento de las cadenas almacenadas en el número (detalle) de las direcciones, devolviendo
-    por un lado el número y por otro el detalle."""
+    """
+    Realiza el tratamiento de las cadenas almacenadas en el número (detalle) de las direcciones, devolviendo
+    por un lado el número y por otro el detalle.
+
+    Attributes
+    ----------
+    num_detalle : str
+        cadena correspondiente al número de portal y detalle adicional
+    """
 
     if re.match('^Km', num_detalle):
         splitted = num_detalle.split(' ')
@@ -30,7 +37,14 @@ def correccion_numero_detalle(num_detalle):
     return numero, detalle
 
 def estandarizar_TipoVia(tipovia):
-    """Modifica la cadena tipovia devolviendo 'No definido' ante situaciones similares."""
+    """
+    Modifica la cadena tipovia devolviendo 'No definido' ante situaciones similares.
+
+    Attributes
+    ----------
+    tipovia : str
+        cadena correspondiente al tipo de vía
+    """
 
     if tipovia == 'No':
         tipovia = 'No definido'

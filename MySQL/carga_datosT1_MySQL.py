@@ -5,7 +5,20 @@ import pandas as pd
 import util_carga_datosT1_MySQL
 
 def bd_connection(host="localhost", user="root", password="root", database="Direcciones_LaRioja"):
-    """Devuelve un conector y un cursor a la base de datos MySQL especificada."""
+    """
+    Devuelve un conector y un cursor a la base de datos MySQL especificada.
+
+    Attributes
+    ----------
+    host : str
+        nombre del host de MySQL
+    user : str
+        nombre de usuario de MySQL
+    password : str
+        contraseña del usuario de MySQL
+    database : str
+        nombre de la base de datos MySQL
+    """
 
     connector = mysql.connector.connect(
         host=host,
@@ -19,7 +32,16 @@ def bd_connection(host="localhost", user="root", password="root", database="Dire
     return connector, cursor
 
 def show_tables(cursor, database=None):
-    """Muestra por pantalla la colección de tablas de la base de datos MySQL especificada."""
+    """
+    Muestra por pantalla la colección de tablas de la base de datos MySQL especificada.
+
+    Attributes
+    ----------
+    cursor : object
+        cursor de conexión con la base de datos
+    database : str
+        nombre de la base de datos MySQL
+    """
 
     if database is not None:
         sql = "USE " + database
@@ -31,14 +53,30 @@ def show_tables(cursor, database=None):
         print(x)
 
 def import_CSV(file, separation=','):
-    """Devuelve el objeto DataFrame de Pandas correspondiente al CSV cuya ruta es la indicada."""
+    """
+    Devuelve el objeto DataFrame de Pandas correspondiente al CSV cuya ruta es la indicada.
+
+    Attributes
+    ----------
+    file : str
+        ruta del fichero
+    separation : str
+        caracter de separación
+    """
 
     # print(file)
     return pd.read_csv(file, sep=separation)
 
 def corregir_nombres_columnas(df):
-    """Las columnas de los ficheros sustituyen el carácter '.' por '0', con lo que este método lo devuelve a la
-    escritura original."""
+    """
+    Las columnas de los ficheros sustituyen el carácter '.' por '0', con lo que este método lo devuelve a la
+    escritura original.
+
+    Attributes
+    ----------
+    df : object
+        DataFrame objetivo
+    """
 
     cols = df.columns
     cols_corregidas = []

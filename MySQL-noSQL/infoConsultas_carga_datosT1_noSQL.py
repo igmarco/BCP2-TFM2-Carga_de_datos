@@ -1,4 +1,6 @@
-# Definimos los parámetros correspondientes a las consultas de la BD MySQL.
+"""
+Definimos los parámetros correspondientes a las consultas de la BD MySQL.
+"""
 # Definimos los parámetros de las consultas de relación jerárquica nominal-nominal.
 conexiones = [
     {

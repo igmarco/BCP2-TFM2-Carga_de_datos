@@ -5,8 +5,16 @@ from cassandra import ConsistencyLevel
 from cassandra.query import BatchStatement
 
 
-# Función general para la construcción de una consulta SQL en base a una "conexión".
 def construccion_sqlquery(estructura):
+    """
+    Función general para la construcción de una consulta SQL en base a una estructura.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    """
+
     sql = "SELECT "
     for campo in estructura['campos']:
         if campo in estructura['using']:
@@ -34,6 +42,18 @@ def construccion_sqlquery(estructura):
     return sql
 
 def construccion_subregions(estructura, cursor):
+    """
+    Exctracción de las subregiones correspondientes con una estructura indicada a partir de un cursor con registros
+    obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    cursor : object
+        cursor de conexión con la base de datos que almacena los registros de las subregiones
+    """
+
     subregions = dict()
 
     for x in cursor:
@@ -57,6 +77,18 @@ def construccion_subregions(estructura, cursor):
     return subregions
 
 def construccion_regions(estructura, cursor):
+    """
+    Exctracción de las regiones correspondientes con una estructura indicada a partir de un cursor con registros
+    obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    cursor : object
+        cursor de conexión con la base de datos que almacena los registros de las regiones
+    """
+
     regions = dict()
 
     for x in cursor:
@@ -74,10 +106,34 @@ def construccion_regions(estructura, cursor):
     return regions
 
 def decode_json(introducido):
+    """
+    Decodificación de una cadena JSON procedente de Redis.
+
+    Attributes
+    ----------
+    introducido : str
+        cadena JSON procedente de Redis
+    """
+
     lista = introducido.decode('utf-8').replace('\'', '"')
     return json.loads(lista)
 
 def carga_subregions_redis(estructura, region_name, region_data, redis_connection):
+    """
+    Carga de subregiones a la base de datos de Redis para un nombre de región concreto.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    region_name : str
+        nombre de la región
+    region_data : dict
+        datos asociados a la región (nombres de subregiones)
+    redis_connection : object
+        conexión con la BD Redis
+    """
+
     introducido = redis_connection.get(estructura['nombre'] + ':' + region_name)
     if introducido is None:
         redis_connection.set(estructura['nombre'] + ':' + region_name, str(region_data[estructura['campo_lista']]))
@@ -89,6 +145,21 @@ def carga_subregions_redis(estructura, region_name, region_data, redis_connectio
         redis_connection.set(estructura['nombre'] + ':' + region_name, str(lista))
 
 def carga_regions_redis(estructura, region_name, region_data, redis_connection):
+    """
+    Carga de regiones a la base de datos de Redis para un nombre de región concreto.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    region_name : str
+        nombre de la región
+    region_data : dict
+        datos asociados al nombre de región (información de las regiones)
+    redis_connection : object
+        conexión con la BD Redis
+    """
+
     introducido = redis_connection.get(estructura['nombre'] + ':' + str(region_name))
     if introducido is None:
         redis_connection.set(estructura['nombre'] + ':' + str(region_name), str(region_data))
@@ -103,6 +174,20 @@ def carga_regions_redis(estructura, region_name, region_data, redis_connection):
         redis_connection.set(estructura['nombre'] + ':' + region_name, str(lista))
 
 def carga_cassandra(estructura, cursor, session):
+    """
+    Carga de subregiones a la base de datos de Cassandra a partir de un cursor con registros
+    obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    cursor : object
+        cursor relativo a la conexión con la BD MySQL
+    session : object
+        sesión relativa a la conexión con la BD Cassandra
+    """
+
     for x in cursor:
         # print(x)
         if x[estructura['campo_lista']] is not None and x[estructura['campo_id']] is not None:
@@ -129,6 +214,21 @@ def carga_cassandra(estructura, cursor, session):
 
 # Con el anterior método la carga se hace completamente lenta. Vamos a ver cómo arreglarlo.
 def carga_cassandra_compacta(estructura, cursor, session):
+    """
+    Carga de subregiones a la base de datos de Cassandra a partir de un cursor con registros
+    obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
+    Versión acelerada con la consideración de un batch de 100 elementos.
+
+    Attributes
+    ----------
+    estructura : dict
+        diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
+    cursor : object
+        cursor relativo a la conexión con la BD MySQL
+    session : object
+        sesión relativa a la conexión con la BD Cassandra
+    """
+
     cql = "INSERT INTO " + "prueba." + estructura['nombre'] + " ("
     for campo in estructura['campos']:
         if len(campo.split('.')) > 1:
