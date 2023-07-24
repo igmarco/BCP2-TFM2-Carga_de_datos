@@ -8,7 +8,7 @@ def bd_connection(host="localhost", user="root", password="root", database="Dire
     """
     Devuelve un conector y un cursor a la base de datos MySQL especificada.
 
-    Attributes
+    Parameters
     ----------
     host : str
         nombre del host de MySQL
@@ -35,7 +35,7 @@ def show_tables(cursor, database=None):
     """
     Muestra por pantalla la colección de tablas de la base de datos MySQL especificada.
 
-    Attributes
+    Parameters
     ----------
     cursor : object
         cursor de conexión con la base de datos
@@ -56,7 +56,7 @@ def import_CSV(file, separation=','):
     """
     Devuelve el objeto DataFrame de Pandas correspondiente al CSV cuya ruta es la indicada.
 
-    Attributes
+    Parameters
     ----------
     file : str
         ruta del fichero
@@ -72,7 +72,7 @@ def corregir_nombres_columnas(df):
     Las columnas de los ficheros sustituyen el carácter '.' por '0', con lo que este método lo devuelve a la
     escritura original.
 
-    Attributes
+    Parameters
     ----------
     df : object
         DataFrame objetivo
