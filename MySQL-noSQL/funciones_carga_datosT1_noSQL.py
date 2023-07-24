@@ -9,7 +9,7 @@ def construccion_sqlquery(estructura):
     """
     Función general para la construcción de una consulta SQL en base a una estructura.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -46,7 +46,7 @@ def construccion_subregions(estructura, cursor):
     Exctracción de las subregiones correspondientes con una estructura indicada a partir de un cursor con registros
     obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -81,7 +81,7 @@ def construccion_regions(estructura, cursor):
     Exctracción de las regiones correspondientes con una estructura indicada a partir de un cursor con registros
     obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -109,7 +109,7 @@ def decode_json(introducido):
     """
     Decodificación de una cadena JSON procedente de Redis.
 
-    Attributes
+    Parameters
     ----------
     introducido : str
         cadena JSON procedente de Redis
@@ -122,7 +122,7 @@ def carga_subregions_redis(estructura, region_name, region_data, redis_connectio
     """
     Carga de subregiones a la base de datos de Redis para un nombre de región concreto.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -148,7 +148,7 @@ def carga_regions_redis(estructura, region_name, region_data, redis_connection):
     """
     Carga de regiones a la base de datos de Redis para un nombre de región concreto.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -178,7 +178,7 @@ def carga_cassandra(estructura, cursor, session):
     Carga de subregiones a la base de datos de Cassandra a partir de un cursor con registros
     obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
@@ -219,7 +219,7 @@ def carga_cassandra_compacta(estructura, cursor, session):
     obtenidos mediante la ejecución de una consulta confeccionada a través de la estructura.
     Versión acelerada con la consideración de un batch de 100 elementos.
 
-    Attributes
+    Parameters
     ----------
     estructura : dict
         diccionario con el sistema de datos correspondiente a la estructura geográfica concreta
