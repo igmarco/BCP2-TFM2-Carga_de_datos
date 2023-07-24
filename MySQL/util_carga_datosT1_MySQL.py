@@ -5,7 +5,7 @@ def correccion_numero_detalle(num_detalle):
     Realiza el tratamiento de las cadenas almacenadas en el número (detalle) de las direcciones, devolviendo
     por un lado el número y por otro el detalle.
 
-    Attributes
+    Parameters
     ----------
     num_detalle : str
         cadena correspondiente al número de portal y detalle adicional
@@ -40,7 +40,7 @@ def estandarizar_TipoVia(tipovia):
     """
     Modifica la cadena tipovia devolviendo 'No definido' ante situaciones similares.
 
-    Attributes
+    Parameters
     ----------
     tipovia : str
         cadena correspondiente al tipo de vía
