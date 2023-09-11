@@ -6,11 +6,11 @@ Parte del Trabajo de Fin de Máster del Máster en Ciencia de Datos y Aprendizaj
 
 Ficheros CSV de partida para la carga de datos en las BD de registros de referencia y para la georreferenciación de direcciones.
 
-#### _T1_
+#### _Datos/T1_
 
 Datos relativos a los registros de referencia en la Comunidad Autónoma de La Rioja, España.
 
-#### _T2_
+#### _Datos/T2_
 
 Datos relativos a las direcciones objetivo.
 
@@ -18,11 +18,11 @@ Datos relativos a las direcciones objetivo.
 
 Scripts de carga de datos a los entornos NoSQL a partir de la BD MySQL.
 
-#### _Cassandra_
+#### _MySQL-noSQL/Cassandra_
 
 Scripts de creación, limpieza y carga de datos en la BD no relacional Cassandra.
 
-#### _Redis_
+#### _MySQL-noSQL/Redis_
 
 Scripts de carga de datos en la BD no relacional Redis.
 
