@@ -8,7 +8,7 @@ Ficheros CSV de partida para la carga de datos en las BD de registros de referen
 
 #### _Datos/T1_
 
-Datos relativos a los registros de referencia en la Comunidad Autónoma de La Rioja, España.
+Datos relativos a los registros de referencia en la Comunidad Autónoma de La Rioja, España. Fuente: [IDERioja](https://www.iderioja.larioja.org/).
 
 #### _Datos/T2_
 
